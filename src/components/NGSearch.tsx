@@ -23,11 +23,11 @@ class NGSearch extends React.Component<IProps,IState> {
 
 	//点击搜索taskList
 	public searchHandleClick () {
-        const value = this.state.value
-        const obj:any = [];
+        let value = this.state.value
+        let obj:any = [];
         const SPACE_REGEXP = /\s+/g
-        const VALUE = value.replace(SPACE_REGEXP,"");
-        if( VALUE !== "" ) {
+        let nameValue = value.replace(SPACE_REGEXP,"");
+        if( nameValue !== "" ) {
             this.props.list.forEach((item:any) => {
                 if (item.name === value) {
                     obj.push(item)
@@ -35,13 +35,13 @@ class NGSearch extends React.Component<IProps,IState> {
             });
             this.props.searchTask(obj)
         }
-		if( VALUE === "" ) {
+		if( nameValue === "" ) {
             this.props.searchTask(this.props.list)
         }
     }
     
 	public searchChangeHandle (e:any) {
-		const data = e.target.value
+		let data = e.target.value
 		this.setState({
 			value:data
 		})

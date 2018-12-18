@@ -23,11 +23,11 @@ class AddList extends React.Component<IProps,IState> {
 
 	//点击添加taskList
 	public addHandleClick () {
-		const len = this.props.nums
-		const newid = len > 0 ? len : 0
-		const value = this.state.value
+		let len = this.props.nums
+		let newid = len > 0 ? len : 0
+		let value = this.state.value
 		if (value !== '') {
-			const obj = {
+			let obj = {
 				name: value,
 				status: 0,
 				taskID: newid,
@@ -37,7 +37,7 @@ class AddList extends React.Component<IProps,IState> {
 		
 	}
 	public addChangeHandle (e:any) {
-		const data = e.target.value
+		let data = e.target.value
 		this.setState({
 			value:data
 		})

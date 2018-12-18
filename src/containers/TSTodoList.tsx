@@ -42,7 +42,7 @@ class TSTodoList extends React.Component<{},Itasks> {
     }
     //删除taskList
     public deleteHandle (deleteTaskID:number) {
-        const obj:any = [];
+        let obj:any = [];
         let sum = 0;
         this.state.list.forEach((item:any) => {
             if (item.taskID !== deleteTaskID) {
@@ -61,7 +61,7 @@ class TSTodoList extends React.Component<{},Itasks> {
 
     //添加taskList
     public addTaskHandle = (newItem:any)=>{
-        const allTask = this.state.list
+        let allTask = this.state.list
         allTask.push(newItem)
         this.setState({
             list: allTask,
@@ -71,7 +71,7 @@ class TSTodoList extends React.Component<{},Itasks> {
 
     //点击修改某个taskList
     public updateHandle(updateTaskID:number) {
-        const obj:any = [];
+        let obj:any = [];
         this.state.list.forEach((item:any) => {
             if (item.taskID === updateTaskID) {
                 obj.push(item);
@@ -85,7 +85,7 @@ class TSTodoList extends React.Component<{},Itasks> {
     
     //修改更新taskList
     public updateTaskHandle = (updateItem:any) => {
-        const obj:any = this.state.list;
+        let obj:any = this.state.list;
         this.state.list.forEach((item:any) => {
             if (item.taskID === updateItem.taskID) {
                 obj.item = updateItem
@@ -100,7 +100,7 @@ class TSTodoList extends React.Component<{},Itasks> {
     
     //修改taskList的name值
     public updateTaskNameHandle = (updateItem:any) => {
-        const obj:any = this.state.list;
+        let obj:any = this.state.list;
         this.state.list.forEach((item:any) => {
             if (item.taskID === updateItem.taskID) {
                 obj.item = updateItem
@@ -118,7 +118,7 @@ class TSTodoList extends React.Component<{},Itasks> {
         })
     }
     public render() {
-        const data = this.state.list;
+        let data = this.state.list;
         return <div>
             <AddList addNewTask={this.addTaskHandle} nums={this.state.list.length}/>
             <NGSearch list={this.state.totallist} searchTask={this.searchTaskHandle} />
