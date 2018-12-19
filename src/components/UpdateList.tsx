@@ -1,58 +1,54 @@
 import * as React from 'react'
 import Button from 'antd/lib/button'
 interface IProps {
-    obj: any
-    style:boolean
-    updateTask: any
-    updateTaskName:any
+    obj: Itasks[]
+    style: boolean
+    updateTasks: any
+    updateTaskName: any
+}
+interface Itasks {
+    name: string
+    status: number
+    taskID: number
 }
 interface IState {
-	value:any;
+	value: string
 }
 class UpdateList extends React.Component<IProps,IState> {
-	public props: IProps = {
-        obj: {},
-        style:false,
-        updateTask: "",
-        updateTaskName:""
-    }
-    public state: IState = {
-		value:"填写修改内容"
-    }
 	constructor (props: IProps, state: IState) {
 		super(props,state)
 		this.handleClick = this.handleClick.bind(this)
 		this.changeHandle = this.changeHandle.bind(this)
     }
 	public handleClick () {
-        let newObj = this.props.obj
-		let value = this.state.value
+        let newObj: Itasks[] = this.props.obj
+		let value: string = this.state.value
 		if (value !== '') {
             newObj[0].name = this.state.value
-			this.props.updateTask(newObj)
+			this.props.updateTasks(newObj)
         }
 	}
-	public changeHandle (e:any) {
-		let data = e.target.value
+	public changeHandle (e: React.ChangeEvent<HTMLInputElement>) {
+		let data: string = e.target.value
 		this.setState({
 			value:data
         })
-        let newObj = this.props.obj
+        let newObj: Itasks[] = this.props.obj
 		if (data !== '') {
             newObj[0].name = data
 			this.props.updateTaskName(newObj)
         }
 	}
 	public render () {
-        let blockStyle = {
+        let blockStyle: object = {
             display:"block"
         }
-        let noneStyle = {
+        let noneStyle: object = {
             display:"none"
         }
-        let showFlags = this.props.style
-        let inputValue = "";
-        if(JSON.stringify(this.props.obj) !== "{}") {
+        let showFlags: boolean = this.props.style
+        let inputValue: string = ""
+        if(JSON.stringify(this.props.obj) !== "[]") {
             inputValue = this.props.obj[0].name
         }
 		return (
@@ -65,7 +61,7 @@ class UpdateList extends React.Component<IProps,IState> {
 				</div>
 			</div>
 			
-		);
+		)
 	}
 }
-export default UpdateList;
+export default UpdateList

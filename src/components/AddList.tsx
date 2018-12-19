@@ -2,19 +2,17 @@ import * as React from 'react'
 import Button from 'antd/lib/button'
 interface IProps {
     nums: number
-    addNewTask: any
+    addNewTask: (item:Itasks) => void
+}
+interface Itasks {
+    name: string
+    status: number
+    taskID:number
 }
 interface IState {
-	value:any;
+	value: string
 }
 class AddList extends React.Component<IProps,IState> {
-	public props: IProps = {
-        addNewTask: "",
-        nums: 0
-    }
-    public state: IState = {
-		value:""
-    }
 	constructor (props: IProps, state: IState) {
 		super(props,state);
 		this.addHandleClick = this.addHandleClick.bind(this)
@@ -22,10 +20,10 @@ class AddList extends React.Component<IProps,IState> {
 	}
 
 	//点击添加taskList
-	public addHandleClick () {
-		let len = this.props.nums
-		let newid = len > 0 ? len : 0
-		let value = this.state.value
+	public addHandleClick (): void {
+		let len: number = this.props.nums
+		let newid: number = len > 0 ? len : 0
+		let value: string = this.state.value
 		if (value !== '') {
 			let obj = {
 				name: value,
@@ -36,15 +34,14 @@ class AddList extends React.Component<IProps,IState> {
 		}
 		
 	}
-	public addChangeHandle (e:any) {
-		let data = e.target.value
+	public addChangeHandle (event:any): void {
+		let data: string = event.target.value
 		this.setState({
 			value:data
 		})
 	}
 	public render () {
 		return (
-			
 			<div className="dialog">
 				<div>
 					<h3>Task</h3>

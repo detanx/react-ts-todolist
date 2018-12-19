@@ -1,12 +1,17 @@
 import { Avatar,Button,List} from 'antd'
-import Itasks from "../constants/Itasks"
+import IState from "../constants/IState"
 import * as React from "react"
 import AddList from 'src/components/AddList'
 import UpdateList from 'src/components/UpdateList'
 import NGSearch from 'src/components/NGSearch'
-class TSTodoList extends React.Component<{},Itasks> {
-    constructor(props:any){
-        super(props);
+interface Itasks {
+    name: string
+    status: number
+    taskID: number
+}
+class TSTodoList extends React.Component <{}, IState> {
+    constructor(props:{}, state:IState){
+        super(props, state)
         this.state = {
             finished: 0,
             list: [{
@@ -36,96 +41,100 @@ class TSTodoList extends React.Component<{},Itasks> {
                 status : 0,
                 taskID: 2,
             }],
-            updateTask:{},
-            updateTaskName:{},
+            updateTask: [],
+            updateTaskName: Function,
+            updateTasks: Function,
         }
     }
+
     //删除taskList
-    public deleteHandle (deleteTaskID:number) {
-        let obj:any = [];
-        let sum = 0;
-        this.state.list.forEach((item:any) => {
+    public deleteHandle (deleteTaskID: number) {
+        let obj: Itasks[] = []
+        let sum: number = 0
+        this.state.list.forEach((item: Itasks) => {
             if (item.taskID !== deleteTaskID) {
-                obj.push(item);
-                if (item.status === 1 ) {
-                    sum++;
-                }
+                obj.push(item)
             }
-        });
+        })
         this.setState({
             finished: sum,
             list: obj,
-            totallist:obj
-        });
+            totallist: obj
+        })
     }
 
     //添加taskList
-    public addTaskHandle = (newItem:any)=>{
-        let allTask = this.state.list
-        allTask.push(newItem)
+    public addTaskHandle = (newItem: Itasks)=>{
+        let allTask: Itasks[] = this.state.list
+        let newArray: Itasks[] = allTask
+        newArray.push(newItem)
         this.setState({
-            list: allTask,
-            totallist:allTask
-        });
+            list: newArray,
+            totallist: newArray
+        })
     }
 
     //点击修改某个taskList
-    public updateHandle(updateTaskID:number) {
-        let obj:any = [];
-        this.state.list.forEach((item:any) => {
-            if (item.taskID === updateTaskID) {
-                obj.push(item);
-            }
-        });
+    public updateHandle(updateTaskID: number) {
+        let obj: Itasks[] = []
+        obj = this.state.list.filter((item: Itasks) => {
+            return item.taskID === updateTaskID
+        })
         this.setState({
-            style:!this.state.style,
+            style: !this.state.style,
             updateTask: obj,
-        });
+        })
     }
     
     //修改更新taskList
-    public updateTaskHandle = (updateItem:any) => {
-        let obj:any = this.state.list;
-        this.state.list.forEach((item:any) => {
+    public updateTaskHandle = (updateItem: Itasks) => {
+        let obj: Itasks[] = []
+        this.state.list.forEach((item: Itasks, index:number) => {
             if (item.taskID === updateItem.taskID) {
-                obj.item = updateItem
+                obj[index] = updateItem
             }
-        });
+            if(item.taskID !== updateItem.taskID) {
+                obj[index] = item
+            }
+        })
         this.setState({
             list: obj,
-            style:false,
-            totallist:obj,
-        });
+            style: false,
+            totallist: obj,
+        })
     }
     
     //修改taskList的name值
-    public updateTaskNameHandle = (updateItem:any) => {
-        let obj:any = this.state.list;
-        this.state.list.forEach((item:any) => {
+    public updateTaskNameHandle = (updateItem: Itasks) => {
+        let obj: Itasks[] = []
+        this.state.list.forEach((item: Itasks, index: number) => {
             if (item.taskID === updateItem.taskID) {
-                obj.item = updateItem
+                obj[index] = updateItem
             }
-        });
+            if(item.taskID !== updateItem.taskID) {
+                obj[index] = item
+            }
+        })
         this.setState({
             list: obj,
-            totallist:obj,
-        });
+            totallist: obj,
+        })
     }
 
-    public searchTaskHandle= (searchObj:any) =>{
+    public searchTaskHandle= (searchObj: Itasks[]) =>{
         this.setState({
-            list:searchObj
+            list: searchObj
         })
     }
     public render() {
-        let data = this.state.list;
+        let data = this.state.list
         return <div>
             <AddList addNewTask={this.addTaskHandle} nums={this.state.list.length}/>
             <NGSearch list={this.state.totallist} searchTask={this.searchTaskHandle} />
             <List
                 itemLayout="horizontal"
                 dataSource={data}
-                renderItem={(item:any) => (
+                renderItem={(item: Itasks) => (
                 <List.Item>
                     <List.Item.Meta
                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
@@ -137,9 +146,9 @@ class TSTodoList extends React.Component<{},Itasks> {
                 </List.Item>
                 )}
             />
-            <UpdateList obj={this.state.updateTask} updateTask={this.updateTaskHandle} updateTaskName={this.updateTaskNameHandle} style={this.state.style}/>
+            <UpdateList obj={this.state.updateTask} updateTasks={this.updateTaskHandle} updateTaskName={this.updateTaskNameHandle} style={this.state.style}/>
         </div>
         
     }
 }
-export default TSTodoList;
+export default TSTodoList
