@@ -3,8 +3,8 @@ import Button from 'antd/lib/button'
 interface IProps {
     obj: Itasks[]
     style: boolean
-    updateTasks: any
-    updateTaskName: any
+    updateTasks: (item:Itasks[]) => void
+    updateTaskName: (item:Itasks[]) => void
 }
 interface Itasks {
     name: string

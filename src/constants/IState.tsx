@@ -8,7 +8,5 @@ export default interface IState {
     totallist: Itasks[]
     finished: number
     updateTask: Itasks[]
-    updateTasks: () => void
-    updateTaskName: () => void
     style: boolean
 }

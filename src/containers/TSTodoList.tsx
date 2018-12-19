@@ -9,8 +9,9 @@ interface Itasks {
     status: number
     taskID: number
 }
+
 class TSTodoList extends React.Component <{}, IState> {
-    constructor(props:{}, state:IState){
+    constructor(props: {}, state:IState){
         super(props, state)
         this.state = {
             finished: 0,
@@ -41,9 +42,7 @@ class TSTodoList extends React.Component <{}, IState> {
                 status : 0,
                 taskID: 2,
             }],
-            updateTask: [],
-            updateTaskName: Function,
-            updateTasks: Function,
+            updateTask: []
         }
     }
 
@@ -87,13 +86,13 @@ class TSTodoList extends React.Component <{}, IState> {
     }
     
     //修改更新taskList
-    public updateTaskHandle = (updateItem: Itasks) => {
+    public updateTaskHandle = (updateItem: Itasks[]) => {
         let obj: Itasks[] = []
         this.state.list.forEach((item: Itasks, index:number) => {
-            if (item.taskID === updateItem.taskID) {
-                obj[index] = updateItem
+            if (item.taskID === updateItem[0].taskID) {
+                obj[index] = updateItem[0]
             }
-            if(item.taskID !== updateItem.taskID) {
+            if(item.taskID !== updateItem[0].taskID) {
                 obj[index] = item
             }
         })
@@ -105,13 +104,13 @@ class TSTodoList extends React.Component <{}, IState> {
     }
     
     //修改taskList的name值
-    public updateTaskNameHandle = (updateItem: Itasks) => {
+    public updateTaskNameHandle = (updateItem: Itasks[]) => {
         let obj: Itasks[] = []
         this.state.list.forEach((item: Itasks, index: number) => {
-            if (item.taskID === updateItem.taskID) {
-                obj[index] = updateItem
+            if (item.taskID === updateItem[0].taskID) {
+                obj[index] = updateItem[0]
             }
-            if(item.taskID !== updateItem.taskID) {
+            if(item.taskID !== updateItem[0].taskID) {
                 obj[index] = item
             }
         })
